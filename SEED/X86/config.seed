@@ -5,7 +5,7 @@ CONFIG_TARGET_x86_64_DEVICE_generic=y
 
 ### IMAGE ###
 CONFIG_TARGET_KERNEL_PARTSIZE=64
-CONFIG_TARGET_ROOTFS_PARTSIZE=2048
+CONFIG_TARGET_ROOTFS_PARTSIZE=4096
 CONFIG_GRUB_TIMEOUT="0"
 
 ### BUILD ###
@@ -28,7 +28,7 @@ CONFIG_PACKAGE_addition-trans-zh=y
 
 CONFIG_PACKAGE_ethtool=y
 CONFIG_PACKAGE_htop=y
-CONFIG_PACKAGE_coremark=y
+CONFIG_PACKAGE_irqbalance=y
 
 ### FILESYSTEM ###
 CONFIG_PACKAGE_kmod-fs-f2fs=y
@@ -49,8 +49,6 @@ CONFIG_PACKAGE_kmod-mlx5-core=y
 
 ### DNS ###
 CONFIG_PACKAGE_dnsmasq-full=y
-
-# nftset 支持
 CONFIG_PACKAGE_dnsmasq_full_nftset=y
 
 # 不使用旧 dnsmasq
@@ -96,7 +94,6 @@ CONFIG_LUCI_LANG_zh_Hans=y
 CONFIG_LUCI_LANG_en=y
 
 CONFIG_PACKAGE_luci-nginx=y
-CONFIG_PACKAGE_luci-compat=y
 
 # 不压缩 JS/CSS
 # CONFIG_LUCI_CSSTIDY is not set
@@ -104,9 +101,14 @@ CONFIG_PACKAGE_luci-compat=y
 
 ### NIKKI ###
 CONFIG_PACKAGE_luci-app-nikki=y
+CONFIG_PACKAGE_kmod-tun=y
+CONFIG_PACKAGE_kmod-nft-tproxy=y
 
 ### MOSDNS ###
 CONFIG_PACKAGE_luci-app-mosdns=y
+
+### OAF ###
+CONFIG_PACKAGE_luci-app-oaf=y
 
 ### VPN ###
 CONFIG_PACKAGE_luci-proto-wireguard=y
@@ -116,16 +118,8 @@ CONFIG_PACKAGE_qrencode=y
 CONFIG_PACKAGE_luci-app-ddns=y
 CONFIG_PACKAGE_ddns-scripts=y
 CONFIG_PACKAGE_ddns-scripts-cloudflare=y
-CONFIG_PACKAGE_ddns-scripts-dnspod=y
-CONFIG_PACKAGE_ddns-scripts-aliyun=y
 CONFIG_PACKAGE_ddns-scripts-services=y
 CONFIG_PACKAGE_bind-host=y
-
-### RAM OPTIMIZATION ###
-CONFIG_PACKAGE_zram-swap=y
-CONFIG_PACKAGE_kmod-lib-lz4=y
-CONFIG_PACKAGE_kmod-lib-lzo=y
-CONFIG_PACKAGE_kmod-lib-zstd=y
 
 ### OPENSSL ###
 CONFIG_OPENSSL_ENGINE=y
@@ -149,8 +143,6 @@ CONFIG_LIBCURL_OPENSSL=y
 # CONFIG_LIBCURL_NOSSL is not set
 
 ### CRYPTO ###
-# 仅保留现代代理必要模块
-
 CONFIG_PACKAGE_kmod-crypto-aead=y
 CONFIG_PACKAGE_kmod-crypto-authenc=y
 CONFIG_PACKAGE_kmod-crypto-gcm=y
@@ -169,49 +161,14 @@ CONFIG_PACKAGE_kmod-crypto-rng=y
 CONFIG_PACKAGE_kmod-crypto-seqiv=y
 
 ### BBR ###
+CONFIG_DEFAULT_tcp_congestion="bbr"
 CONFIG_PACKAGE_kmod-tcp-bbr=y
-
-### USB SHARE ###
-CONFIG_PACKAGE_usbmuxd=y
-CONFIG_PACKAGE_kmod-usb-net-rndis=y
-CONFIG_PACKAGE_kmod-usb-net-ipheth=y
-
-### APPLICATION ###
-CONFIG_PACKAGE_luci-app-opkg=y
-CONFIG_PACKAGE_luci-app-filemanager=y
-CONFIG_PACKAGE_luci-app-wechatpush=y
-CONFIG_PACKAGE_luci-app-upnp=y
-CONFIG_PACKAGE_luci-app-usb-printer=y
-CONFIG_PACKAGE_luci-app-services-wolplus=y
-CONFIG_PACKAGE_luci-app-ramfree=y
-CONFIG_PACKAGE_luci-app-cpufreq=y
-CONFIG_PACKAGE_luci-app-cpulimit=y
-CONFIG_PACKAGE_luci-app-taskplan=y
-CONFIG_PACKAGE_luci-app-arpbind=y
-CONFIG_PACKAGE_luci-app-oaf=y
-CONFIG_PACKAGE_luci-app-bandix=y
-CONFIG_PACKAGE_luci-app-airconnect=y
-CONFIG_PACKAGE_luci-app-vlmcsd=y
-CONFIG_PACKAGE_luci-app-unblockneteasemusic=y
-CONFIG_PACKAGE_luci-app-partexp=y
-CONFIG_PACKAGE_luci-app-ap-modem=y
-
-### FRP ###
-CONFIG_PACKAGE_frpc=y
-CONFIG_PACKAGE_frps=y
-
-### Zerotier ###
-CONFIG_PACKAGE_zerotier=y
-
-### THEME ###
-CONFIG_PACKAGE_luci-theme-aurora=y
-CONFIG_PACKAGE_luci-theme-bootstrap=y
 
 ### RNG ###
 CONFIG_PACKAGE_urngd=y
 
 ### REMOVE ###
-# 删除冲突代理
+# 删除全部冲突代理
 
 # CONFIG_PACKAGE_luci-app-dae is not set
 # CONFIG_PACKAGE_dae is not set
@@ -220,9 +177,12 @@ CONFIG_PACKAGE_urngd=y
 
 # CONFIG_PACKAGE_luci-app-openclash is not set
 
+# CONFIG_PACKAGE_luci-app-ssr-plus is not set
+
+# CONFIG_PACKAGE_luci-app-homeproxy is not set
+
+# CONFIG_PACKAGE_luci-app-bypass is not set
+
 # 删除 SFE
 # CONFIG_PACKAGE_kmod-shortcut-fe-cm is not set
 # CONFIG_PACKAGE_kmod-fast-classifier is not set
-
-# 删除 SSR+
-# CONFIG_PACKAGE_luci-app-ssr-plus is not set
