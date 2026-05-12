@@ -35,5 +35,5 @@ cp -rf ../PATCH/files ./files
 
 find ./ -name *.orig | xargs rm -f
 find ./ -name *.rej | xargs rm -f
-
+sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 exit 0
